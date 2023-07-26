@@ -17,6 +17,11 @@
 #define IR_DENON_COMMAND_POWER 0xA
 #define IR_DENON_COMMAND_VOL_UP 0xB2
 #define IR_DENON_COMMAND_VOL_DOWN 0x32
+#define IR_DENON_COMMAND_AUX 0xDA
+#define IR_DENON_COMMAND_TUNER 0x9A
+#define IR_DENON_COMMAND_CD 0x5A
+#define IR_DENON_COMMAND_TAPE 0x1A
+
 
 void setup() {
   Serial.begin(115200);
@@ -43,21 +48,32 @@ void loop() {
           printf("VOL_DOWN");
           break;
 
-        case IR_SAMSUNG_COMMAND_MUTE: case IR_SAMSUNG_COMMAND_BLUE:
+        case IR_SAMSUNG_COMMAND_BLUE:
           IrSender.sendDenon(IR_DENON_ADDRESS, IR_DENON_COMMAND_POWER, 0);
-          printf("POWER/MUTE");
+          printf("POWER");
+          delay(500UL);
+          break;
+
+        case IR_SAMSUNG_COMMAND_MUTE: 
+          IrSender.sendDenon(IR_DENON_ADDRESS, IR_DENON_COMMAND_POWER, 0);
+          printf("MUTE");
           delay(500UL);
           break;
 
         case IR_SAMSUNG_COMMAND_RED:
+          IrSender.sendDenon(IR_DENON_ADDRESS, IR_DENON_COMMAND_AUX, 0);
           printf("RED");
+          delay(500UL);
           break;
 
         case IR_SAMSUNG_COMMAND_GREEN:
+          IrSender.sendDenon(IR_DENON_ADDRESS, IR_DENON_COMMAND_TUNER, 0);
           printf("GREEN");
+          delay(500UL);
           break;
 
         case IR_SAMSUNG_COMMAND_YELLOW:
+          IrSender.sendDenon(IR_DENON_ADDRESS, IR_DENON_COMMAND_CD, 0);
           printf("YELLOW");
           break;
 
